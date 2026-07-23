@@ -1,9 +1,37 @@
 <h1>Thử nghiệm C# và LINQ</h1>
-<p>Số bài đã xuất bản: <strong>@ViewBag.SoDaXuatBan</strong></p>
+<p><strong>Tổng số lượt xem tất cả bài viết:</strong> @ViewBag.TongLuotXem lượt</p>
 
-<ul>
-@foreach (var tieuDe in ViewBag.TieuDe)
+<!--Bài viết nhiều lượt xem nhất -->
+@if (ViewBag.BaiVietHot != null)
 {
-    <li>@tieuDe</li>
+    <p>
+        <strong>Bài viết có nhiều lượt xem nhất:</strong> 
+        @ViewBag.BaiVietHot.Title - Tác giả: @ViewBag.BaiVietHot.Author (@ViewBag.BaiVietHot.ViewCount lượt xem)
+    </p>
 }
-</ul>
+
+<hr />
+
+<!--Danh sách bài đã xuất bản (Sắp xếp ViewCount giảm dần) -->
+<h3>Danh sách bài viết đã xuất bản (Xem nhiều nhất -> ít nhất)</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Lượt xem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.BaiVietDaXuatBan)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+                <td>@item.ViewCount</td>
+            </tr>
+        }
+    </tbody>
+</table>

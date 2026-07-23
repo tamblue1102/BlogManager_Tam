@@ -8,4 +8,6 @@ public class Post
     public DateTime PublishedAt { get; set; } = DateTime.Now;
     public bool IsPublished { get; set; }
     public string MoTaNgan() => $"{Title} ({PublishedAt:dd/MM/yyyy})";
+    public string Author { get; set; } = string.Empty;
+    public int ViewCount { get; set; }
     }
