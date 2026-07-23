@@ -10,4 +10,8 @@ public class Post
     public string MoTaNgan() => $"{Title} ({PublishedAt:dd/MM/yyyy})";
     public string Author { get; set; } = string.Empty;
     public int ViewCount { get; set; }
+    public string GetNhanPhobien()
+        {
+            return ViewCount >= 100 ? "Phổ biến" : "Thường";
+        }
     }

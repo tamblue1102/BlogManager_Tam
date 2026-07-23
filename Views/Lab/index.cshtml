@@ -28,6 +28,13 @@
         {
             <tr>
                 <td>@item.Id</td>
+                <td>
+                    @item.Title 
+                    <!-- Hiển thị nhãn Phổ biến / Thường bên cạnh Tiêu đề -->
+                    <span class="badge @(item.ViewCount >= 100 ? "bg-success" : "bg-secondary") ms-2">
+                        @item.GetNhanPhobien()
+                    </span>
+                </td>
                 <td>@item.Title</td>
                 <td>@item.Author</td>
                 <td>@item.ViewCount</td>
