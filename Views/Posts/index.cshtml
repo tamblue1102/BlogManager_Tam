@@ -1,0 +1,29 @@
+@model List<BlogManager_Tam.Models.Post>
+
+<h1>Danh sách bài viết</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Ngày đăng</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var post in Model)
+    {
+        <tr>
+            <td>@post.Title</td>
+            <td>@post.Author</td>
+            <td>@post.PublishedAt.ToString("dd/MM/yyyy")</td>
+            <td>@(post.IsPublished ? "Đã xuất bản" : "Nháp")</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@post.Id">Xem chi tiết</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
