@@ -1,6 +1,10 @@
-@model List<BlogManager_Tam.Models.Post>
+@model List<BlogManager_Tam.Models.Category>
 
-<h1>Danh sách bài viết</h1>
+@{
+    ViewData["Title"] = "Danh sách danh mục";
+}
+
+<h1>Danh sách danh mục</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary d-inline-flex align-items-center gap-2">
@@ -8,14 +12,13 @@
             <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1" />
             <path d="M8 4.5a.5.5 0 0 1 .5.5v2.5H11a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V8.5H5a.5.5 0 0 1 0-1h2.5V5a.5.5 0 0 1 .5-.5" />
         </svg>
-        Thêm bài viết
+        Thêm danh mục
     </a>
 </p>
 
 <form asp-action="Index" method="get" class="row g-2 mb-3">
     <div class="col-auto">
-        <input name="search" value="@ViewBag.Search"
-               class="form-control" placeholder="Tìm theo tiêu đề" />
+        <input name="search" value="@ViewBag.Search" class="form-control" placeholder="Tìm theo tên danh mục" />
     </div>
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">Tìm</button>
@@ -25,32 +28,30 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Tiêu đề</th>
-            <th>Tác giả</th>
-            <th>Ngày đăng</th>
+            <th>Tên danh mục</th>
+            <th>Ngày xuất bản</th>
             <th>Trạng thái</th>
             <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var post in Model)
+    @foreach (var category in Model)
     {
         <tr>
-            <td>@post.Title</td>
-            <td>@post.Author</td>
-            <td>@post.PublishedAt.ToString("dd/MM/yyyy")</td>
-            <td>@(post.IsPublished ? "Đã xuất bản" : "Nháp")</td>
+            <td>@category.Name</td>
+            <td>@category.PublishedAt.ToString("dd/MM/yyyy")</td>
+            <td>@(category.IsPublished ? "Đã xuất bản" : "Nháp")</td>
             <td class="d-flex gap-2">
-                <a asp-action="Details" asp-route-id="@post.Id" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
-                <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-sm btn-warning">Sửa</a>
-                <a asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">Xóa</a>
+                <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
+                <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-warning">Sửa</a>
+                <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-danger">Xóa</a>
             </td>
         </tr>
     }
     </tbody>
 </table>
 
-<nav aria-label="Phân trang bài viết">
+<nav aria-label="Phân trang danh mục">
     <ul class="pagination justify-content-center">
         <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
             <a class="page-link" asp-action="Index" asp-route-search="@ViewBag.Search"

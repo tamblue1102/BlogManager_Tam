@@ -1,12 +1,13 @@
+using BlogManager_Tam.Data;
 using BlogManager_Tam.Models;
 using Microsoft.AspNetCore.Mvc;
-using BlogManager_Tam.Data;
 using Microsoft.EntityFrameworkCore;
 
-public class PostsController : Controller
+public class CategoriesController : Controller
 {
     private readonly ApplicationDbContext _context;
-    public PostsController(ApplicationDbContext context)
+
+    public CategoriesController(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -14,19 +15,19 @@ public class PostsController : Controller
     public async Task<IActionResult> Index(string? search, int page = 1)
     {
         const int pageSize = 5;
-        var postsQuery = _context.Posts.AsQueryable();
+        var categoriesQuery = _context.Categories.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(search))
         {
-            postsQuery = postsQuery.Where(post => post.Title.Contains(search));
+            categoriesQuery = categoriesQuery.Where(category => category.Name.Contains(search));
         }
 
-        var totalPosts = await postsQuery.CountAsync();
-        var totalPages = Math.Max(1, (int)Math.Ceiling(totalPosts / (double)pageSize));
+        var totalCategories = await categoriesQuery.CountAsync();
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCategories / (double)pageSize));
         page = Math.Clamp(page, 1, totalPages);
 
-        var posts = await postsQuery
-            .OrderByDescending(post => post.PublishedAt)
+        var categories = await categoriesQuery
+            .OrderBy(category => category.Name)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -35,77 +36,70 @@ public class PostsController : Controller
         ViewBag.TotalPages = totalPages;
         ViewBag.Search = search;
 
-        return View(posts);
+        return View(categories);
     }
 
     public async Task<IActionResult> Details(int id)
     {
-        var post = await _context.Posts.FindAsync(id);
-
-        if (post == null)
-        {
-            return NotFound();
-        }
-
-        return View(post);
+        var category = await _context.Categories.FindAsync(id);
+        return category == null ? NotFound() : View(category);
     }
 
     public IActionResult Create() => View();
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Post post)
+    public async Task<IActionResult> Create(Category category)
     {
         if (!ModelState.IsValid)
         {
-            return View(post);
+            return View(category);
         }
 
-        _context.Posts.Add(post);
+        _context.Categories.Add(category);
         await _context.SaveChangesAsync();
-
         return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> Edit(int id)
     {
-        var post = await _context.Posts.FindAsync(id);
-        return post == null ? NotFound() : View(post);
+        var category = await _context.Categories.FindAsync(id);
+        return category == null ? NotFound() : View(category);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Post post)
+    public async Task<IActionResult> Edit(int id, Category category)
     {
-        if (id != post.Id)
+        if (id != category.Id)
         {
             return NotFound();
         }
 
         if (!ModelState.IsValid)
         {
-            return View(post);
+            return View(category);
         }
 
-        _context.Update(post);
+        _context.Update(category);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> Delete(int id)
     {
-        var post = await _context.Posts.FindAsync(id);
-        return post == null ? NotFound() : View(post);
+        var category = await _context.Categories.FindAsync(id);
+        return category == null ? NotFound() : View(category);
     }
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var post = await _context.Posts.FindAsync(id);
-        if (post != null)
+        var category = await _context.Categories.FindAsync(id);
+        if (category != null)
         {
-            _context.Posts.Remove(post);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
         }
 

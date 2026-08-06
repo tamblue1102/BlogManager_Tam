@@ -3,6 +3,7 @@ using System;
 using BlogManager_Tam.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogManager_Tam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260806025413_SeedCategories")]
+    partial class SeedCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -23,15 +26,9 @@ namespace BlogManager_Tam.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PublishedAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -42,44 +39,32 @@ namespace BlogManager_Tam.Migrations
                         new
                         {
                             Id = 1,
-                            IsPublished = true,
-                            Name = "Lập trình C#",
-                            PublishedAt = new DateTime(2026, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Lập trình C#"
                         },
                         new
                         {
                             Id = 2,
-                            IsPublished = true,
-                            Name = "ASP.NET MVC",
-                            PublishedAt = new DateTime(2026, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "ASP.NET MVC"
                         },
                         new
                         {
                             Id = 3,
-                            IsPublished = false,
-                            Name = "Entity Framework Core",
-                            PublishedAt = new DateTime(2026, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Entity Framework Core"
                         },
                         new
                         {
                             Id = 4,
-                            IsPublished = true,
-                            Name = "Lập trình web",
-                            PublishedAt = new DateTime(2026, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Lập trình web"
                         },
                         new
                         {
                             Id = 5,
-                            IsPublished = false,
-                            Name = "Cơ sở dữ liệu",
-                            PublishedAt = new DateTime(2026, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Cơ sở dữ liệu"
                         },
                         new
                         {
                             Id = 6,
-                            IsPublished = true,
-                            Name = "Tin tức công nghệ",
-                            PublishedAt = new DateTime(2026, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Tin tức công nghệ"
                         });
                 });
 

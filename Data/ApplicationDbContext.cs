@@ -15,6 +15,14 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Category>().HasData(
+            new Category { Id = 1, Name = "Lập trình C#", PublishedAt = new DateTime(2026, 8, 1), IsPublished = true },
+            new Category { Id = 2, Name = "ASP.NET MVC", PublishedAt = new DateTime(2026, 8, 2), IsPublished = true },
+            new Category { Id = 3, Name = "Entity Framework Core", PublishedAt = new DateTime(2026, 8, 3), IsPublished = false },
+            new Category { Id = 4, Name = "Lập trình web", PublishedAt = new DateTime(2026, 8, 4), IsPublished = true },
+            new Category { Id = 5, Name = "Cơ sở dữ liệu", PublishedAt = new DateTime(2026, 8, 5), IsPublished = false },
+            new Category { Id = 6, Name = "Tin tức công nghệ", PublishedAt = new DateTime(2026, 8, 6), IsPublished = true });
+
         modelBuilder.Entity<Post>().HasData(
             new Post
             {

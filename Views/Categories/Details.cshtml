@@ -1,0 +1,19 @@
+@model BlogManager_Tam.Models.Category
+
+@{
+    ViewData["Title"] = "Chi tiết danh mục";
+}
+
+<h1>Chi tiết danh mục</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Tên danh mục</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+    <dt class="col-sm-3">Ngày xuất bản</dt>
+    <dd class="col-sm-9">@Model.PublishedAt.ToString("dd/MM/yyyy")</dd>
+    <dt class="col-sm-3">Trạng thái</dt>
+    <dd class="col-sm-9">@(Model.IsPublished ? "Đã xuất bản" : "Nháp")</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>
